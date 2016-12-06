@@ -1,12 +1,12 @@
 # vagrant-lamp-bootstrap
 
-A super-simple Vagrantfile / bootstrap.sh to setup a LAMP stack inside Vagrant 100% automatically.
+A super-simple Vagrantfile / bootstrap.sh to setup a LAMP stack inside Vagrant automatically.
 
 ### What ?
 
 This is a reduced-to-the-max Vagrant setup file for a quick development stack. It will:
 
-* setup a Ubuntu 14.04 LTS "Trusty Thar" 64bit box
+* setup a Ubuntu 14.04 LTS "Trusty Tar" 64bit box
 
 * make the box accessable by the host at IP localhost or `127.0.0.1` port 80. 
 - or - change the host port to whatever you like or even use a private network address ip by adding the line:
@@ -15,10 +15,10 @@ config.vm.network "private_network", ip: "192.168.33.22"
 and deleting the line:
 config.vm.network "forwarded_port", guest: 80, host: 80
 
-* syncs the "sites" folder with `/var/www/html` inside the box 
+* syncs the local "sites" folder with `/var/www/html` inside the box 
 - or - change to sync the current folder "./" with '/var/www/html' inside the box.
 
-* automatically perform all the commands in bootstrap.sh directly after setting up the box for the first time
+* automatically performs all the commands in bootstrap.sh directly after setting up the box for the first time
 
 The bootstrap.sh will:
 
@@ -32,6 +32,8 @@ The bootstrap.sh will:
 
 * activate mod_rewrite and add *AllowOverride All* to the vhost settings
 
+* adds the php index file to the first position of dir.conf
+
 You can change the folder and password inside the bootstrap.sh file.
 
 ### How to use ?
@@ -41,4 +43,4 @@ This box uses Ubuntu 14.04 LTS "Trustry Tar" 64bit, so if you don't have the bas
 
 ### Why ?
 
-This is just my personal time-saving bootstrap for Vagrant, it might be useful for you too.
+Personal time-saving bootstrap for Vagrant, it might be useful for you too.
