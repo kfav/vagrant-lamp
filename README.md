@@ -2,15 +2,21 @@
 
 A super-simple Vagrantfile / bootstrap.sh to setup a LAMP stack inside Vagrant 100% automatically.
 
-### Whaaaaat ?
+### What ?
 
 This is a reduced-to-the-max Vagrant setup file for a quick development stack. It will:
 
-* setup a Ubuntu 14.04 LTS "Trustry Thar" 64bit box
+* setup a Ubuntu 14.04 LTS "Trusty Thar" 64bit box
 
-* make the box accessable by the host at IP `192.168.33.22`
+* make the box accessable by the host at IP localhost or `127.0.0.1` port 80. 
+- or - change the host port to whatever you like or even use a private network address ip by adding the line:
+config.vm.network "private_network", ip: "192.168.33.22"
 
-* sync the current folder with `/var/www/html` inside the box
+and deleting the line:
+config.vm.network "forwarded_port", guest: 80, host: 80
+
+* syncs the "sites" folder with `/var/www/html` inside the box 
+- or - change to sync the current folder "./" with '/var/www/html' inside the box.
 
 * automatically perform all the commands in bootstrap.sh directly after setting up the box for the first time
 
@@ -22,17 +28,16 @@ The bootstrap.sh will:
 
 * install apache 2.4, php 5.5, MySQL, PHPMyAdmin, git and Composer
 
-* also setting a pre-chosen password for MySQL and PHPMyAdmin
+* sets a pre-chosen password for MySQL and PHPMyAdmin
 
 * activate mod_rewrite and add *AllowOverride All* to the vhost settings
 
-You can folder and password inside the bootstrap.sh for sure.
+You can change the folder and password inside the bootstrap.sh file.
 
 ### How to use ?
 
 Put `Vagrantfile` and `bootstrap.sh` inside a folder and do a `vagrant up` on the command line.
-This box uses Ubuntu 14.04 LTS "Trustry Thar" 64bit, so if you don't have the basic box already, do a 
-`vagrant box add ubuntu/trusty64` before.
+This box uses Ubuntu 14.04 LTS "Trustry Tar" 64bit, so if you don't have the basic box already, do `vagrant box add ubuntu/trusty64`.
 
 ### Why ?
 
