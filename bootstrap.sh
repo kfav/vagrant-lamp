@@ -19,7 +19,7 @@ sudo apt-get install -y php5
 sudo debconf-set-selections <<< "mysql-server mysql-server/root_password password $PASSWORD"
 sudo debconf-set-selections <<< "mysql-server mysql-server/root_password_again password $PASSWORD"
 sudo apt-get -y install mysql-server
-sudo apt-get install php5-mysql
+sudo apt-get install php5-mysql libapache2-mod-php5 php5-mcrypt
 
 # install phpmyadmin and give password(s) to installer
 # for simplicity I'm using the same password for mysql and phpmyadmin
@@ -33,21 +33,30 @@ sudo apt-get -y install phpmyadmin
 # setup hosts file
 VHOST=$(cat <<EOF
 <VirtualHost *:80>
-    DocumentRoot "/var/www/html/${PROJECTFOLDER}"
-    <Directory "/var/www/html/${PROJECTFOLDER}">
+    DocumentRoot "/var/www/html"
+    <Directory "/var/www/html">
         AllowOverride All
-        Require all granted
+		Require all granted
     </Directory>
 </VirtualHost>
 EOF
 )
 echo "${VHOST}" > /etc/apache2/sites-available/000-default.conf
 
+# add the php index file to the first position
+VMOD=$(cat <<EOF
+<IfModule mod_dir.c>
+	DirectoryIndex index.php index.html index.cgi index.pl index.xhtml index.htm
+</IfModule>
+EOF
+)
+echo "${VMOD}" > /etc/apache2/mods-enabled/dir.conf
+
 # enable mod_rewrite
 sudo a2enmod rewrite
 
 # restart apache
-service apache2 restart
+sudo service apache2 restart
 
 # install git
 sudo apt-get -y install git
