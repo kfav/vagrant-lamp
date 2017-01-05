@@ -19,7 +19,7 @@ sudo apt-get install -y php5
 sudo debconf-set-selections <<< "mysql-server mysql-server/root_password password $PASSWORD"
 sudo debconf-set-selections <<< "mysql-server mysql-server/root_password_again password $PASSWORD"
 sudo apt-get -y install mysql-server
-sudo apt-get install php5-mysql libapache2-mod-php5 php5-mcrypt
+sudo apt-get -y install php5-mysql libapache2-mod-php5 php5-mcrypt
 
 # install phpmyadmin and give password(s) to installer
 # for simplicity I'm using the same password for mysql and phpmyadmin
